@@ -1,8 +1,8 @@
 //
 //  AppDelegate.h
-//  MoodDiary
+//  小心情
 //
-//  Created by Xavier on 16-2-29.
+//  Created by Xavier on 16-2-21.
 //  Copyright (c) 2016年 Xavier. All rights reserved.
 //
 

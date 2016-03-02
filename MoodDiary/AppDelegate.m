@@ -1,12 +1,19 @@
 //
 //  AppDelegate.m
-//  MoodDiary
+//  小心情
 //
-//  Created by Xavier on 16-2-29.
+//  Created by Xavier on 16-2-21.
 //  Copyright (c) 2016年 Xavier. All rights reserved.
 //
 
+#import "MMDrawerController.h"
+#import "MagicalRecord.h"
+
 #import "AppDelegate.h"
+#import "MainTableViewController.h"
+#import "LeftDrawerViewController.h"
+#import "CommonDefine.h"
+#import "NSDate+toDateString.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +24,26 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    
+    MainTableViewController * mainVc = [[MainTableViewController alloc]init];
+    UINavigationController * navVc = [[UINavigationController alloc]initWithRootViewController:mainVc];
+    LeftDrawerViewController * leftVc = [[LeftDrawerViewController alloc]init];
+    
+    MMDrawerController * drawerVc = [[MMDrawerController alloc]initWithCenterViewController:navVc leftDrawerViewController:leftVc];
+    drawerVc.maximumLeftDrawerWidth = 250;
+    drawerVc.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+    drawerVc.closeDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+    
+    self.window.rootViewController = drawerVc;
+    
+    [self.window makeKeyAndVisible];
+    
+    [MagicalRecord setupCoreDataStackWithStoreAtURL:[NSURL fileURLWithPath:DBPATH]];
+    
+    NSLog(@"%@",DBPATH);
+    
     return YES;
 }
 
